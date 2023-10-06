@@ -14,6 +14,7 @@ work_dir=$(dirname $(realpath $0))
 nvim_config_dir="${HOME}/.config"
 nvim_plugin_dir="${HOME}/.local/share"
 nvim_install_dir="${HOME}/.soft"
+time_str=$(date +"%F_%H%M%S")
 
 # source os-release fiele
 if [[ -f /etc/os-release ]]; then
@@ -42,8 +43,8 @@ function create_dir ()
 function un_tar_file ()
 {
 	# untar nvim_install file
-	if [[ -d "${nvim_install_dir}"/nvim-linux64 ]]; then
-		rm -rf "${nvim_install_dir}"/nvim-linux64 >/dev/null 2>&1
+	if [[ -d "${nvim_install_dir}/nvim-linux64" ]]; then
+		rm -rf "${nvim_install_dir}/nvim-linux64" >/dev/null 2>&1
 		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim installeler package....\033[1;32mOK\033[0m"
 		tar -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
@@ -56,8 +57,8 @@ function un_tar_file ()
 	sleep 1
 
 	# untar nvim_config file
-	if [[ -d "${nvim_config_dir}"/nvim ]]; then
-		mv "${nvim_config_dir}"/nvim "${nvim_config_dir}"/nvim.bak$(date +"%F_%H%M%S")
+	if [[ -d "${nvim_config_dir}/nvim" ]]; then
+		mv "${nvim_config_dir}/nvim" "${nvim_config_dir}/nvim.bak${time_str}"
 		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim config file....\033[1;32mOK\033[0m"
 		tar -xf nvim-config.tar.gz -C "${nvim_config_dir}"
@@ -70,8 +71,8 @@ function un_tar_file ()
 	sleep 1
 
 	# untar nvim_plugin file
-	if [[ -d "${nvim_plugin_dir}"/nvim ]]; then
-		mv "${nvim_plugin_dir}"/nvim "${nvim_plugin_dir}"/nvim.bak$(date +"%F_%H%M%S")
+	if [[ -d "${nvim_plugin_dir}/nvim" ]]; then
+		mv "${nvim_plugin_dir}/nvim" "${nvim_plugin_dir}/nvim.bak${time_str}"
 		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim plugin file....\033[1;32mOK\033[0m"
 		tar -xf nvim-plugin.tar.gz -C "${nvim_plugin_dir}"
@@ -143,14 +144,14 @@ function print_excuting_msg ()
 # uninstall nvim
 function uninstall_nvim ()
 {
-	if [[ -d "${nvim_install_dir}"/nvim-linux64 ]]; then
+	if [[ -d "${nvim_install_dir}/nvim-linux64" ]]; then
 		print_excuting_msg "Uninstalling"
 		echo -e "\033[1;31mUninstalling.....\033[32mOK\033[0m"
-		rm -rf "${nvim_install_dir}"/nvim-linux64 >/dev/null 2>&1
-		rm -rf "${nvim_config_dir}"/nvim* >/dev/null 2>&1
-		rm -rf "${nvim_plugin_dir}"/nvim* >/dev/null 2>&1
-		rm -rf "${HOME}"/.cache/nvim* >/dev/null 2>&1
-		rm -rf "${HOME}"/.local/state/nvim* >/dev/null 2>&1
+		rm -rf "${nvim_install_dir}/nvim-linux64" >/dev/null 2>&1
+		rm -rf "${nvim_config_dir}/nvim"* >/dev/null 2>&1
+		rm -rf "${nvim_plugin_dir}/nvim"* >/dev/null 2>&1
+		rm -rf "${HOME}/.cache/nvim"* >/dev/null 2>&1
+		rm -rf "${HOME}/.local/state/nvim"* >/dev/null 2>&1
 		exit
 	else
 		echo -e "\033[1;33mIt seems you have not install neovim yet, do you want to install?\033[0m [y/N]"
