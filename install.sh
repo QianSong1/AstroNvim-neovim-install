@@ -23,18 +23,18 @@ fi
 function create_dir ()
 {
 	# create nvim config dir
-	if [[ ! -d ${nvim_config_dir} ]]; then
-		mkdir -p ${nvim_config_dir}
+	if [[ ! -d "${nvim_config_dir}" ]]; then
+		mkdir -p "${nvim_config_dir}"
 	fi
 
 	# create nvim plugin dir
-	if [[ ! -d ${nvim_plugin_dir} ]]; then
-		mkdir -p ${nvim_plugin_dir}
+	if [[ ! -d "${nvim_plugin_dir}" ]]; then
+		mkdir -p "${nvim_plugin_dir}"
 	fi
 
 	# create nvim insatll dir
-	if [[ ! -d ${nvim_install_dir} ]]; then
-		mkdir -p ${nvim_install_dir}
+	if [[ ! -d "${nvim_install_dir}" ]]; then
+		mkdir -p "${nvim_install_dir}"
 	fi 
 }
 
@@ -42,43 +42,43 @@ function create_dir ()
 function un_tar_file ()
 {
 	# untar nvim_install file
-	if [[ -d ${nvim_install_dir}/nvim-linux64 ]]; then
-		rm -rf ${nvim_install_dir}/nvim-linux64 >/dev/null 2>&1
-		cd ${work_dir}
+	if [[ -d "${nvim_install_dir}"/nvim-linux64 ]]; then
+		rm -rf "${nvim_install_dir}"/nvim-linux64 >/dev/null 2>&1
+		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim installeler package....\033[1;32mOK\033[0m"
-		tar -xf nvim-installer.tar.gz -C ${nvim_install_dir}
+		tar -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
 	else
-		cd ${work_dir}
+		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim installeler package....\033[1;32mOK\033[0m"
-		tar -xf nvim-installer.tar.gz -C ${nvim_install_dir}
+		tar -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
 	fi
 	echo " "
 	sleep 1
 
 	# untar nvim_config file
-	if [[ -d ${nvim_config_dir}/nvim ]]; then
-		mv ${nvim_config_dir}/nvim ${nvim_config_dir}/nvim.bak$(date +"%F_%H%M%S")
-		cd ${work_dir}
+	if [[ -d "${nvim_config_dir}"/nvim ]]; then
+		mv "${nvim_config_dir}"/nvim "${nvim_config_dir}"/nvim.bak$(date +"%F_%H%M%S")
+		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim config file....\033[1;32mOK\033[0m"
-		tar -xf nvim-config.tar.gz -C ${nvim_config_dir}
+		tar -xf nvim-config.tar.gz -C "${nvim_config_dir}"
 	else
-		cd ${work_dir}
+		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim config file....\033[1;32mOK\033[0m"
-		tar -xf nvim-config.tar.gz -C ${nvim_config_dir}
+		tar -xf nvim-config.tar.gz -C "${nvim_config_dir}"
 	fi
 	echo " "
 	sleep 1
 
 	# untar nvim_plugin file
-	if [[ -d ${nvim_plugin_dir}/nvim ]]; then
-		mv ${nvim_plugin_dir}/nvim ${nvim_plugin_dir}/nvim.bak$(date +"%F_%H%M%S")
-		cd ${work_dir}
+	if [[ -d "${nvim_plugin_dir}"/nvim ]]; then
+		mv "${nvim_plugin_dir}"/nvim "${nvim_plugin_dir}"/nvim.bak$(date +"%F_%H%M%S")
+		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim plugin file....\033[1;32mOK\033[0m"
-		tar -xf nvim-plugin.tar.gz -C ${nvim_plugin_dir}
+		tar -xf nvim-plugin.tar.gz -C "${nvim_plugin_dir}"
 	else
-		cd ${work_dir}
+		cd "${work_dir}"
 		echo -e "\033[1;33mUntaring neovim plugin file....\033[1;32mOK\033[0m"
-		tar -xf nvim-plugin.tar.gz -C ${nvim_plugin_dir}
+		tar -xf nvim-plugin.tar.gz -C "${nvim_plugin_dir}"
 	fi
 	echo " "
 	sleep 1
@@ -87,7 +87,7 @@ function un_tar_file ()
 # define shell env fire VAR
 function define_shell_env_file ()
 {
-	shell_type=$(echo ${SHELL}|awk -F '/' '{print $NF}')
+	shell_type=$(echo "${SHELL}"|awk -F '/' '{print $NF}')
 	case "${shell_type}" in
 		"zsh") 
 			env_file="${HOME}/.zshrc"
@@ -127,8 +127,8 @@ function print_excuting_msg ()
 	local cahr_3="${message}..."
 	local cahr_4="${message}...."
 	local cahr_5="${message}....."
-	i=1
-	while [[ $i -le 5 ]]; do
+	local i=1
+	while [[ "${i}" -le 5 ]]; do
 		r_char="\$cahr_${i}"
 		msg=$(eval "echo -e \"${r_char}\"")
 		echo -ne "\033[?25l${msg}\033[0m"
@@ -143,21 +143,21 @@ function print_excuting_msg ()
 # uninstall nvim
 function uninstall_nvim ()
 {
-	if [[ -d ${nvim_install_dir}/nvim-linux64 ]]; then
+	if [[ -d "${nvim_install_dir}"/nvim-linux64 ]]; then
 		print_excuting_msg "Uninstalling"
 		echo -e "\033[1;31mUninstalling.....\033[32mOK\033[0m"
-		rm -rf ${nvim_install_dir}/nvim-linux64 >/dev/null 2>&1
-		rm -rf ${nvim_config_dir}/nvim* >/dev/null 2>&1
-		rm -rf ${nvim_plugin_dir}/nvim* >/dev/null 2>&1
-		rm -rf ${HOME}/.cache/nvim* >/dev/null 2>&1
-		rm -rf ${HOME}/.local/state/nvim* >/dev/null 2>&1
+		rm -rf "${nvim_install_dir}"/nvim-linux64 >/dev/null 2>&1
+		rm -rf "${nvim_config_dir}"/nvim* >/dev/null 2>&1
+		rm -rf "${nvim_plugin_dir}"/nvim* >/dev/null 2>&1
+		rm -rf "${HOME}"/.cache/nvim* >/dev/null 2>&1
+		rm -rf "${HOME}"/.local/state/nvim* >/dev/null 2>&1
 		exit
 	else
 		echo -e "\033[1;33mIt seems you have not install neovim yet, do you want to install?\033[0m [y/N]"
 		read -p "> " you_zl
 		while true
 		do
-			case ${you_zl} in
+			case "${you_zl}" in
 				y|yes|Y)
 					install_nvim
 					;;
@@ -212,7 +212,7 @@ function exit_shell ()
 	echo -e "\033[31m\033[1mAre you sure want exit now? [y/N]:\033[0m "
 	echo -n "> "
 	read you_zl
-	case ${you_zl} in
+	case "${you_zl}" in
 		y|Y|yes)
 			echo -e "\033[34mGood Bye!!!\033[0m"
 			print_excuting_msg "Quiting"
