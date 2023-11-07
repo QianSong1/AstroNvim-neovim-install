@@ -1,3 +1,4 @@
 # pai chu tar file
 *.tar.gz
 *.tar
+*.sha256
