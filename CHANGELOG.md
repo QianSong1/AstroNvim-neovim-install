@@ -1,6 +1,9 @@
 # AstroNvim-neovim-install
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v1.1.3
+1、修改了配色方案为everforest
+
 # v1.1.2
 1、遵循Google编程风格指南，调整缩进时，一个tab键展开为空格填充
 
