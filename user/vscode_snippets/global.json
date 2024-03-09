@@ -1,0 +1,46 @@
+{
+  "todo": {
+    "prefix": "todo",
+    "body": ["TODO: ${1:severity} ${0:description} (${CURENT_YEAR}-${CURENT_MONTH}-${CURENT_DAY})"],
+  "description": "Snippet for TODO"
+  },
+  "fixme": {
+    "prefix": "fix",
+    "body": ["FIXME: ${1:severity} ${0:description} (${CURENT_YEAR}-${CURENT_MONTH}-${CURENT_DAY})"],
+  "description": "Snippet for FIXME"
+  },
+  "quality": {
+    "prefix": "qc",
+    "body": [
+      "",
+      "# Problem",
+      "",
+      "${0:description}",
+      "",
+      "## Faulty code",
+      "",
+      "```",
+      "",
+      "```",
+      "",
+      "## Correct code",
+      "",
+      "```",
+      "",
+      "```",
+      "",
+      "## Analysis, why wrong?",
+      "",
+      "* ",
+      "* ",
+      "",
+      "## Action to learn or to foolproof",
+      "",
+      "todo: ",
+      "",
+      "## Tags",
+      "",
+      ""],
+  "description": "Template for issue analysis"
+  }
+}

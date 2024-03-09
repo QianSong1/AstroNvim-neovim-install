@@ -1,0 +1,23 @@
+{
+  "template": {
+    "prefix": "template",
+    "body": [
+      "",
+      "# https://cheatography.com/linux-china/cheat-sheets/justfile/",
+      "",
+      "alias tdd := watch",
+      "",
+      "build:",
+      "  echo build",
+      "",
+      "test: build",
+      "  echo tests are KO ❌",
+      "",
+      "watch:",
+      "  ls | entr just test",
+      "",
+      "debt:",
+      "  git grep -EI 'TODO|FIXME'"],
+  "description": "Template for a new project"
+  }
+}

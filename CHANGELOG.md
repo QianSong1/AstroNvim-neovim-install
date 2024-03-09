@@ -1,6 +1,10 @@
 # AstroNvim-neovim-install
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v1.1.4
+1、添加了透明效果插件
+2、修改了状态栏，vim模式提示符样式
+
 # v1.1.3
 1、修改了配色方案为everforest
 

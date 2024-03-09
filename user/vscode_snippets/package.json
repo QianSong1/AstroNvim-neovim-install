@@ -1,0 +1,33 @@
+{
+  "name": "my-own-snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "plaintext",
+          "markdown",
+          "tex",
+          "html",
+          "global",
+          "all"
+        ],
+        "path": "./global.json"
+      },
+      {
+        "language": [
+          "fish"
+        ],
+        "path": "./fish.json"
+      },
+      {
+        "language": [
+          "just"
+        ],
+        "path": "./just.json"
+      }
+    ]
+  }
+}
