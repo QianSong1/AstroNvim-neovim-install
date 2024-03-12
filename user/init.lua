@@ -55,7 +55,7 @@ local config = {
           hl = { fg = "fg", bg = "bg" },
           status.component.mode { 
             mode_text = { padding = { left = 1, right = 1 } },
-            surround = { separator = "left", color = "#50AB60" },
+            surround = { separator = "left", color = "#611A66" },
           }, -- add the mode text
           status.component.git_branch(),
           status.component.file_info(),            -- filename & modified status
