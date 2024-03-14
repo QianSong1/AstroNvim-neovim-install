@@ -1,6 +1,16 @@
 # AstroNvim-neovim-install
 AstroNvim-neovim-install autoinstall AstroNvim
 
+
+
+# Config
+
+The configuration file repository can be found here
+
+<https://github.com/QianSong1/AstroNvim-user>
+
+
+
 # Usage
 
 ## For Linux
