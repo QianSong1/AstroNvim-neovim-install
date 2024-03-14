@@ -42,7 +42,7 @@ function create_dir() {
 function un_tar_file() {
 	# untar nvim_install file
 	if [[ -d "${nvim_install_dir}/nvim-linux64" ]]; then
-		rm -rf "${nvim_install_dir}/nvim-linux64" >/dev/null 2>&1
+		rm -rf "${nvim_install_dir:?}/nvim-linux64" >/dev/null 2>&1
 		cd "${work_dir}" || exit
 		echo -e "\033[1;33mUntaring neovim installeler package....\033[1;32mOK\033[0m"
 		tar -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
@@ -141,11 +141,11 @@ function uninstall_nvim() {
 	if [[ -d "${nvim_install_dir}/nvim-linux64" ]]; then
 		print_excuting_msg "Uninstalling"
 		echo -e "\033[1;31mUninstalling.....\033[32mOK\033[0m"
-		rm -rf "${nvim_install_dir}/nvim-linux64" >/dev/null 2>&1
-		rm -rf "${nvim_config_dir}/nvim"* >/dev/null 2>&1
-		rm -rf "${nvim_plugin_dir}/nvim"* >/dev/null 2>&1
-		rm -rf "${HOME}/.cache/nvim"* >/dev/null 2>&1
-		rm -rf "${HOME}/.local/state/nvim"* >/dev/null 2>&1
+		rm -rf "${nvim_install_dir:?}/nvim-linux64" >/dev/null 2>&1
+		rm -rf "${nvim_config_dir:?}/nvim"* >/dev/null 2>&1
+		rm -rf "${nvim_plugin_dir:?}/nvim"* >/dev/null 2>&1
+		rm -rf "${HOME:?}/.cache/nvim"* >/dev/null 2>&1
+		rm -rf "${HOME:?}/.local/state/nvim"* >/dev/null 2>&1
 		exit
 	else
 		echo -e "\033[1;33mIt seems you have not install neovim yet, do you want to install?\033[0m [y/N]"
