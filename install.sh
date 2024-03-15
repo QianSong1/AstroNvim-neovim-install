@@ -107,8 +107,8 @@ function install_nvim() {
 	define_shell_env_file
 	sed -ri '/# config neovim PATH/d' "${env_file}"
 	sed -ri '/n(.*)vim(.*)\/bin/d' "${env_file}"
-	echo '# config neovim PATH' >>"${env_file}"
-	echo "export PATH=\"${nvim_install_dir}/nvim-linux64/bin:\$PATH\"" >>"${env_file}"
+	echo '# config neovim PATH' >>"${env_file:?}"
+	echo "export PATH=\"${nvim_install_dir}/nvim-linux64/bin:\$PATH\"" >>"${env_file:?}"
 	export PATH="${nvim_install_dir}/nvim-linux64/bin:$PATH"
 	sleep 1
 	echo -e "\033[1;32mInsatll sucessfully.You can run \033[34mexec ${shell_type} && nvim\033[0m \033[1;32mto start editer!!!\033[0m"
