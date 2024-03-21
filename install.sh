@@ -85,7 +85,7 @@ function un_tar_file() {
 
 # define shell env fire VAR
 function define_shell_env_file() {
-	shell_type=$(echo "${SHELL}" | awk -F '/' '{print $NF}')
+	shell_type="$(echo "${SHELL}" | awk -F '/' '{print $NF}')"
 	case "${shell_type}" in
 	"zsh")
 		env_file="${HOME}/.zshrc"
@@ -100,6 +100,26 @@ function define_shell_env_file() {
 	esac
 }
 
+# create shellcheck config file
+function config_shellcheck_rc_file() {
+
+	if [ ! -f "${HOME}/.shellcheckrc" ]; then
+		touch "${HOME}/.shellcheckrc"
+	fi
+
+	sed -ri '/# 禁用数据流分析防止内存过度占用/d' "${HOME}/.shellcheckrc"
+	sed -ri '/extended-analysis=/d' "${HOME}/.shellcheckrc"
+	sed -ri '/# 忽略以下代码的语法警告检测/d' "${HOME}/.shellcheckrc"
+	sed -ri '/disable=/d' "${HOME}/.shellcheckrc"
+
+	{
+		echo "# 禁用数据流分析防止内存过度占用"
+		echo "extended-analysis=false"
+		echo "# 忽略以下代码的语法警告检测"
+		echo "disable=SC2034,SC2043,SC2002,SC2181,SC2126"
+	} >>"${HOME:?}/.shellcheckrc"
+}
+
 # install nvim
 function install_nvim() {
 	create_dir
@@ -110,6 +130,7 @@ function install_nvim() {
 	echo '# config neovim PATH' >>"${env_file:?}"
 	echo "export PATH=\"${nvim_install_dir}/nvim-linux64/bin:\$PATH\"" >>"${env_file:?}"
 	export PATH="${nvim_install_dir}/nvim-linux64/bin:$PATH"
+	config_shellcheck_rc_file
 	sleep 1
 	echo -e "\033[1;32mInsatll sucessfully.You can run \033[34mexec ${shell_type} && nvim\033[0m \033[1;32mto start editer!!!\033[0m"
 	exit
