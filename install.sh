@@ -422,4 +422,4 @@ for i in HUP INT QUIT TSTP; do
 	eval "${trap_cmd}"
 done
 
-main "@"
+main "$@"
