@@ -7,7 +7,9 @@ AstroNvim-neovim-install autoinstall AstroNvim
 
 The configuration file repository can be found here
 
-<https://github.com/QianSong1/AstroNvim-user>
+**AstroNvim \< 4.0: **<https://github.com/QianSong1/AstroNvim-user>
+
+**AstroNvim \> 4.0: **<https://github.com/QianSong1/AstroNvim-config>
 
 
 

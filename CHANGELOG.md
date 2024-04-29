@@ -1,7 +1,13 @@
 # AstroNvim-neovim-install
 AstroNvim-neovim-install autoinstall AstroNvim
 
-# v1.1.5
+# v4.0.0
+
+1、更新neovim版本为0.9.5  
+2、迁移AstroNvim配置到4.0+  
+3、添加了4.0+配置文件仓库
+
+# v2.0.0
 1、遵循shellcheck规范，调整代码风格  
 2、添加shellcheck工具  
 3、添加shfmt自动格式化工具  
