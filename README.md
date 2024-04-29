@@ -79,6 +79,19 @@ C:\soft\mingw64\bin
 https://git-scm.com/download/win
 ```
 
+4.`node`
+
+```
+#Download the x86_64 windows installation package
+https://nodejs.org/en/download/prebuilt-binaries
+
+#Extract to your favorite directory, such as
+C:\soft\node-v20.12.2-win-x64
+
+#Configure user environment variable PATH
+C:\soft\node-v20.12.2-win-x64
+```
+
 
 
 **Configuration**
