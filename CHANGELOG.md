@@ -1,6 +1,9 @@
 # AstroNvim-neovim-install
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v4.0.1
+1、由于shellcheck被none-ls禁用，现在重新把它加回来使其正常工作  
+
 # v4.0.0
 
 1、更新neovim版本为0.9.5  
