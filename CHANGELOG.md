@@ -1,6 +1,9 @@
 # AstroNvim-neovim-install
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v4.0.2
+1、将大型文件buf大小限制调整为5MB，5万行，使得符合限制的大型文件代码能够启用TS，不自动开启wrap等等
+
 # v4.0.1
 1、由于shellcheck被none-ls禁用，现在重新把它加回来使其正常工作  
 
