@@ -1,6 +1,8 @@
 # AstroNvim-neovim-install
 AstroNvim-neovim-install autoinstall AstroNvim
 
+![image-20240524215202789](img/image-20240524215202789.png) 
+
 
 
 # Config
