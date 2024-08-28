@@ -2,6 +2,11 @@
 
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v4.0.4
+
+1、更新配置与官方一致  
+2、调整格式化超时为5000ms  
+
 # v4.0.3
 
 1、添加 yaml 语言开发套装
