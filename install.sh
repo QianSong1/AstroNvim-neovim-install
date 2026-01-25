@@ -46,11 +46,6 @@ nvim_plugin_dir=""
 nvim_install_dir=""
 time_str="$(date +"%F_%H%M%S")"
 
-# source os-release fiele
-if [[ -f /etc/os-release ]]; then
-    . /etc/os-release
-fi
-
 #######################################
 # 标准危险信息输出
 # Globals:
@@ -531,17 +526,17 @@ function print_excuting_msg() {
 
     local msg
     local message="$1"
-    local cahr_1="${message}."
-    local cahr_2="${message}.."
-    local cahr_3="${message}..."
-    local cahr_4="${message}...."
-    local cahr_5="${message}....."
+    local msg_1="${message}."
+    local msg_2="${message}.."
+    local msg_3="${message}..."
+    local msg_4="${message}...."
+    local msg_5="${message}....."
 
     local i=1
 
     while [[ "${i}" -le 5 ]]; do
-        r_char="\$cahr_${i}"
-        msg="$(eval "echo -e \"${r_char}\"")"
+        msg="\${msg_${i}}"
+        msg="$(eval "echo \"${msg}\"")"
         echo -ne "\033[?25l${msg}\033[0m"
         echo -ne "\r\r"
         i=$((i + 1))
@@ -706,6 +701,33 @@ function select_option() {
 #   none
 #######################################
 function main() {
+
+    # source os-release fiele
+    if [[ -f /etc/os-release ]]; then
+        source /etc/os-release
+    fi
+
+    local current_os
+    current_os="${ID:-unknowos}"
+
+    case "${current_os}" in
+    almalinux | rocky | centos)
+        echo -e "${lv_color}检测到 RHEL 系：${bai_color}${current_os}，${lv_color}该操作系统支持本安装程序...${normal_color}"
+        print_excuting_msg "进入安装菜单"
+        sleep 3
+        ;;
+    ubuntu | debian | kali)
+        echo -e "${lv_color}检测到 Debian 系：${bai_color}${current_os}，${lv_color}该操作系统支持本安装程序...${normal_color}"
+        print_excuting_msg "进入安装菜单"
+        sleep 3
+        ;;
+    *)
+        log_error "$0 行${LINENO}: 不支持的发行版: ${current_os}，请手动折腾安装AstroNvim..."
+        print_excuting_msg "操作终止"
+        sleep 3
+        exit 1
+        ;;
+    esac
 
     init_security_home_path
     set_nvim_config_global_var
