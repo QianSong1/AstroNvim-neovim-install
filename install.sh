@@ -174,40 +174,40 @@ function set_nvim_config_global_var() {
 function create_dir() {
 
     # create nvim config dir
-    if is_path_safe "${nvim_config_dir}"; then
-        log_info "路径可以安全操作: ${nvim_config_dir}"
-    else
-        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_config_dir}"
-        exit 1
-    fi
-
     if [[ ! -d "${nvim_config_dir}" ]]; then
+        if is_path_safe "${nvim_config_dir}"; then
+            log_info "路径可以安全操作: ${nvim_config_dir}"
+        else
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_config_dir}"
+            exit 1
+        fi
+
         echo "Creating ${nvim_config_dir} ..."
         mkdir -p "${nvim_config_dir}"
     fi
 
     # create nvim plugin dir
-    if is_path_safe "${nvim_plugin_dir}"; then
-        log_info "路径可以安全操作: ${nvim_plugin_dir}"
-    else
-        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_plugin_dir}"
-        exit 1
-    fi
-
     if [[ ! -d "${nvim_plugin_dir}" ]]; then
+        if is_path_safe "${nvim_plugin_dir}"; then
+            log_info "路径可以安全操作: ${nvim_plugin_dir}"
+        else
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_plugin_dir}"
+            exit 1
+        fi
+
         echo "Creating ${nvim_plugin_dir} ..."
         mkdir -p "${nvim_plugin_dir}"
     fi
 
     # create nvim insatll dir
-    if is_path_safe "${nvim_install_dir}"; then
-        log_info "路径可以安全操作: ${nvim_install_dir}"
-    else
-        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_install_dir}"
-        exit 1
-    fi
-
     if [[ ! -d "${nvim_install_dir}" ]]; then
+        if is_path_safe "${nvim_install_dir}"; then
+            log_info "路径可以安全操作: ${nvim_install_dir}"
+        else
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_install_dir}"
+            exit 1
+        fi
+
         echo "Creating ${nvim_install_dir} ..."
         mkdir -p "${nvim_install_dir}"
     fi
