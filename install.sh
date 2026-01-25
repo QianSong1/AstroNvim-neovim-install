@@ -230,6 +230,8 @@ function is_path_safe() {
 
     local -r input_path_regex="^[\~]"
 
+    local -r input_path_is_contain_space="[[:space:]]"
+
     local input_path="$1"
 
     # 1. 参数校验
@@ -238,14 +240,21 @@ function is_path_safe() {
         return 1
     fi
 
-    # 2. 手动处理波浪号 (Tilde Expansion)
+    # 2. 【核心修改】硬性拦截包含空格的路径
+    # 使用 Bash 原生正则匹配任何空白字符（空格、制表符等）
+    if [[ "${input_path}" =~ ${input_path_is_contain_space} ]]; then
+        log_danger "$0 行${LINENO}: 拒绝操作：路径 [${input_path}] 包含空格，出于安全考虑，禁止执行。"
+        return 1
+    fi
+
+    # 3. 手动处理波浪号 (Tilde Expansion)
     # 即使路径被单引号包裹传入，这里也能将其识别并替换
     if [[ "${input_path}" =~ ${input_path_regex} ]]; then
         # 替换第一个 ~ 为当前用户的 HOME 变量
         input_path="${input_path/\~/${security_home_path}}"
     fi
 
-    # 3. 路径规范化 (Canonicalize)
+    # 4. 路径规范化 (Canonicalize)
     # -m 选项：如果路径不存在也处理，解析所有符号链接并消除 ./ 与 ../
     local normalized_path
 
@@ -254,13 +263,13 @@ function is_path_safe() {
         return 1
     fi
 
-    # 4. 空值检查
+    # 5. 空值检查
     if [[ -z "${normalized_path}" ]]; then
         log_error "$0 行${LINENO}: 错误：规范化路径出现空值。"
         return 1
     fi
 
-    # 5. 正则匹配检查
+    # 6. 正则匹配检查
     # 使用规范化后的绝对路径进行对比，彻底杜绝 ../../ 绕过
     # 额外逻辑：readlink -m 会去掉末尾斜杠，正则 .+ 确保了它不是目录本身
     if [[ "${normalized_path}" =~ ${allowed_path_regex} ]]; then
@@ -690,6 +699,60 @@ function select_option() {
 }
 
 #######################################
+# 打印工具安装状态并检查依赖。
+# Globals:
+#   None
+# Arguments:
+#   None
+# Outputs:
+#   none
+# Returns:
+#   0 如果所有工具都已安装
+#   1 如果有任何工具缺失
+#######################################
+function check_dependencies() {
+
+    local -a required_tools=("tar" "readlink" "getent")
+    local tool
+    local has_missing=0
+    local status_msg
+    local dot_padding="........................"
+
+    echo "正在检查系统依赖状态:"
+
+    for tool in "${required_tools[@]}"; do
+        # 使用 printf 实现固定宽度的对齐效果
+        # %-12s 表示左对齐，占用 12 个字符
+        if command -v "${tool}" >/dev/null 2>&1; then
+            status_msg="OK"
+            printf "  - %s %s [%b%s%b]\n" \
+                "${tool}" \
+                "${dot_padding:${#tool}}" \
+                "${lv_color}" \
+                "${status_msg}" \
+                "${normal_color}"
+            sleep 0.5
+        else
+            status_msg="MISSING"
+            printf "  - %s %s [%b%s%b]\n" \
+                "${tool}" \
+                "${dot_padding:${#tool}}" \
+                "${hong_color}" \
+                "${status_msg}" \
+                "${normal_color}"
+            sleep 0.5
+            has_missing=1
+        fi
+    done
+
+    if [[ "${has_missing}" -eq 1 ]]; then
+        return 1
+    fi
+
+    return 0
+}
+
+#######################################
 # 主函数main，程序的入口
 # Globals:
 #   none
@@ -713,21 +776,34 @@ function main() {
     case "${current_os}" in
     almalinux | rocky | centos)
         echo -e "${lv_color}检测到 RHEL 系：${bai_color}${current_os}，${lv_color}该操作系统支持本安装程序...${normal_color}"
-        print_excuting_msg "进入安装菜单"
-        sleep 3
+        sleep 1
+        echo
         ;;
     ubuntu | debian | kali)
         echo -e "${lv_color}检测到 Debian 系：${bai_color}${current_os}，${lv_color}该操作系统支持本安装程序...${normal_color}"
-        print_excuting_msg "进入安装菜单"
-        sleep 3
+        sleep 1
+        echo
         ;;
     *)
         log_error "$0 行${LINENO}: 不支持的发行版: ${current_os}，请手动折腾安装AstroNvim..."
         print_excuting_msg "操作终止"
-        sleep 3
+        echo
         exit 1
         ;;
     esac
+
+    if ! check_dependencies; then
+        echo
+        log_error "$0 行${LINENO}: 错误: 缺少必要的系统工具，请安装后再试..."
+        echo
+        exit 1
+    else
+        echo
+        log_info "所有依赖检查通过..."
+        echo
+        print_excuting_msg "进入安装菜单"
+        sleep 3
+    fi
 
     init_security_home_path
     set_nvim_config_global_var
