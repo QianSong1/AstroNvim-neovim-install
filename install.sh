@@ -130,10 +130,10 @@ function init_security_home_path() {
     readonly real_home_path
 
     if [[ -z "${security_home_path}" ]]; then
-        log_danger "警告：检测到 HOME 是空值，不允许继续执行。"
+        log_danger "$0 行${LINENO}: 警告：检测到 HOME 是空值，不允许继续执行。"
         exit 1
     elif [[ "${security_home_path}" != "/root" ]] && [[ "${security_home_path}" != "${real_home_path}" ]]; then
-        log_danger "警告：检测到 HOME 被篡改，不允许继续执行。"
+        log_danger "$0 行${LINENO}: 警告：检测到 HOME 被篡改，不允许继续执行。"
         exit 1
     fi
 
@@ -174,17 +174,41 @@ function set_nvim_config_global_var() {
 function create_dir() {
 
     # create nvim config dir
+    if is_path_safe "${nvim_config_dir}"; then
+        log_info "路径可以安全操作: ${nvim_config_dir}"
+    else
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_config_dir}"
+        exit 1
+    fi
+
     if [[ ! -d "${nvim_config_dir}" ]]; then
+        echo "Creating ${nvim_config_dir} ..."
         mkdir -p "${nvim_config_dir}"
     fi
 
     # create nvim plugin dir
+    if is_path_safe "${nvim_plugin_dir}"; then
+        log_info "路径可以安全操作: ${nvim_plugin_dir}"
+    else
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_plugin_dir}"
+        exit 1
+    fi
+
     if [[ ! -d "${nvim_plugin_dir}" ]]; then
+        echo "Creating ${nvim_plugin_dir} ..."
         mkdir -p "${nvim_plugin_dir}"
     fi
 
     # create nvim insatll dir
+    if is_path_safe "${nvim_install_dir}"; then
+        log_info "路径可以安全操作: ${nvim_install_dir}"
+    else
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_install_dir}"
+        exit 1
+    fi
+
     if [[ ! -d "${nvim_install_dir}" ]]; then
+        echo "Creating ${nvim_install_dir} ..."
         mkdir -p "${nvim_install_dir}"
     fi
 }
@@ -215,7 +239,7 @@ function is_path_safe() {
 
     # 1. 参数校验
     if [[ -z "${input_path}" ]]; then
-        log_error "错误：未提供路径参数。"
+        log_error "$0 行${LINENO}: 错误：未提供路径参数。"
         return 1
     fi
 
@@ -231,13 +255,13 @@ function is_path_safe() {
     local normalized_path
 
     if ! normalized_path="$(readlink -m "${input_path}")"; then
-        log_error "错误：规范化路径出错。"
+        log_error "$0 行${LINENO}: 错误：规范化路径出错。"
         return 1
     fi
 
     # 4. 空值检查
     if [[ -z "${normalized_path}" ]]; then
-        log_error "错误：规范化路径出现空值。"
+        log_error "$0 行${LINENO}: 错误：规范化路径出现空值。"
         return 1
     fi
 
@@ -248,7 +272,7 @@ function is_path_safe() {
         log_info "允许操作：路径 [${input_path}] (规范化为: ${normalized_path}) 在允许范围。"
         return 0
     else
-        log_danger "拒绝操作：路径 [${input_path}] (规范化为: ${normalized_path}) 不在允许范围。"
+        log_danger "$0 行${LINENO}: 拒绝操作：路径 [${input_path}] (规范化为: ${normalized_path}) 不在允许范围。"
         return 1
     fi
 }
@@ -271,7 +295,7 @@ function un_tar_file() {
     if is_path_safe "${nvim_install_dir}"; then
         log_info "路径可以安全操作: ${nvim_install_dir}"
     else
-        log_error "路径不可以安全操作: ${nvim_install_dir}"
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_install_dir}"
         exit 1
     fi
 
@@ -291,7 +315,7 @@ function un_tar_file() {
     if is_path_safe "${nvim_config_dir}"; then
         log_info "路径可以安全操作: ${nvim_config_dir}"
     else
-        log_error "路径不可以安全操作: ${nvim_config_dir}"
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_config_dir}"
         exit 1
     fi
 
@@ -311,7 +335,7 @@ function un_tar_file() {
     if is_path_safe "${nvim_plugin_dir}"; then
         log_info "路径可以安全操作: ${nvim_plugin_dir}"
     else
-        log_error "路径不可以安全操作: ${nvim_plugin_dir}"
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_plugin_dir}"
         exit 1
     fi
 
@@ -352,7 +376,7 @@ function define_shell_env_file() {
         env_file="${security_home_path}/.bashrc"
         ;;
     *)
-        echo -e "${hong_color}Error for set env file type. Exitting.....${normal_color}"
+        echo -e "$0 行${LINENO}: ${hong_color}Error for set env file type. Exitting.....${normal_color}"
         exit 1
         ;;
     esac
@@ -375,7 +399,7 @@ function config_shellcheck_rc_file() {
     if is_path_safe "${security_home_path}/.shellcheckrc"; then
         log_info "路径可以安全操作: ${security_home_path}/.shellcheckrc"
     else
-        log_error "路径不可以安全操作: ${security_home_path}/.shellcheckrc"
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${security_home_path}/.shellcheckrc"
         exit 1
     fi
 
@@ -472,7 +496,7 @@ function install_nvim() {
     if is_path_safe "${env_file}"; then
         log_info "路径可以安全操作: ${env_file}"
     else
-        log_error "路径不可以安全操作: ${env_file}"
+        log_error "$0 行${LINENO}: 路径不可以安全操作: ${env_file}"
         exit 1
     fi
 
@@ -548,7 +572,7 @@ function uninstall_nvim() {
         if is_path_safe "${nvim_install_dir}/nvim-linux64"; then
             log_info "路径可以安全操作: ${nvim_install_dir}/nvim-linux64"
         else
-            log_error "路径不可以安全操作: ${nvim_install_dir}/nvim-linux64"
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_install_dir}/nvim-linux64"
             exit 1
         fi
         echo "Removing ${nvim_install_dir}/nvim-linux64 ..."
@@ -557,7 +581,7 @@ function uninstall_nvim() {
         if is_path_safe "${nvim_config_dir}/nvim"; then
             log_info "路径可以安全操作: ${nvim_config_dir}/nvim"
         else
-            log_error "路径不可以安全操作: ${nvim_config_dir}/nvim"
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_config_dir}/nvim"
             exit 1
         fi
         echo "Removing ${nvim_config_dir}/nvim ..."
@@ -566,7 +590,7 @@ function uninstall_nvim() {
         if is_path_safe "${nvim_plugin_dir}/nvim"; then
             log_info "路径可以安全操作: ${nvim_plugin_dir}/nvim"
         else
-            log_error "路径不可以安全操作: ${nvim_plugin_dir}/nvim"
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${nvim_plugin_dir}/nvim"
             exit 1
         fi
         echo "Removing ${nvim_plugin_dir}/nvim ..."
@@ -575,7 +599,7 @@ function uninstall_nvim() {
         if is_path_safe "${security_home_path}/.cache/nvim"; then
             log_info "路径可以安全操作: ${security_home_path}/.cache/nvim"
         else
-            log_error "路径不可以安全操作: ${security_home_path}/.cache/nvim"
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${security_home_path}/.cache/nvim"
             exit 1
         fi
         echo "Removing ${security_home_path}/.cache/nvim ..."
@@ -584,7 +608,7 @@ function uninstall_nvim() {
         if is_path_safe "${security_home_path}/.local/state/nvim"; then
             log_info "路径可以安全操作: ${security_home_path}/.local/state/nvim"
         else
-            log_error "路径不可以安全操作: ${security_home_path}/.local/state/nvim"
+            log_error "$0 行${LINENO}: 路径不可以安全操作: ${security_home_path}/.local/state/nvim"
             exit 1
         fi
         echo "Removing ${security_home_path}/.local/state/nvim ..."
@@ -713,7 +737,7 @@ function exit_shell() {
         Y | YES)
             echo -e "${tianlan_color}Good Bye!!!${normal_color}"
             print_excuting_msg "Quiting"
-            exit
+            exit 0
             ;;
         N | NO)
             select_option
