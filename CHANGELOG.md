@@ -2,10 +2,16 @@
 
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v5.0.0
+
+1、更新配置到官方v5+  
+2、关闭保存时的自动格式化  
+3、更新neovim版本v0.11.6
+
 # v4.0.4
 
 1、更新配置与官方一致  
-2、调整格式化超时为5000ms  
+2、调整格式化超时为5000ms
 
 # v4.0.3
 
