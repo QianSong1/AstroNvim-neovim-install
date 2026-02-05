@@ -2,6 +2,12 @@
 
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v5.0.1
+
+1、添加彗星光标特效  
+2、添加丝滑鼠标滚动，丝滑翻页滚动特效  
+3、关闭透明效果
+
 # v5.0.0
 
 1、更新配置到官方v5+  
