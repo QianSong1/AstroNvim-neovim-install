@@ -4,7 +4,8 @@ AstroNvim-neovim-install autoinstall AstroNvim
 
 # v6.0.1
 
-1、更新NVIM v0.12.5
+1、更新NVIM v0.12.5  
+2、修改treesitter配置仅在 Windows 环境下强制设置 CC 环境变量为 gcc
 
 # v6.0.0
 
