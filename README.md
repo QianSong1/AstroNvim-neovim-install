@@ -126,6 +126,11 @@ The configuration file repository can be found here
 -rwxr-xr-x 1 root root             16M  9月 2日 18:18 lazygit
 -rwxr-xr-x 1 root root            5.1M  9月 2日 18:13 rg
 -rwxr-xr-x 1 root root             13M  9月 2日 18:38 tree-sitter
+
+# build from source (need cargo)
+╰─ cargo install --locked tree-sitter-cli
+╰─ cd ~/.local/share/nvim/mason/packages/tree-sitter-cli
+╰─ cp ~/.cargo/bin/tree-sitter ./tree-sitter-linux-x64
 ```
 
 
