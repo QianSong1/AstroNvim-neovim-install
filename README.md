@@ -399,6 +399,7 @@ C:\soft\nvim-win64\bin
 #Download the x86_64-posix-seh installation package
 https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
 https://jaist.dl.sourceforge.net/project/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
+https://winlibs.com/#download-release
 
 #Extract to your favorite directory, such as
 C:\soft\mingw64
