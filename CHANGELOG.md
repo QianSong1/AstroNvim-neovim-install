@@ -5,7 +5,7 @@ AstroNvim-neovim-install autoinstall AstroNvim
 # v6.0.0
 
 1、更新配置到官方v6+  
-2、添加 Python 语言社区套装 
+2、添加 Python 语言社区套装
 
 # v5.0.1
 
