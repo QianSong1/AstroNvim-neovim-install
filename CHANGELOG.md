@@ -2,6 +2,10 @@
 
 AstroNvim-neovim-install autoinstall AstroNvim
 
+# v6.0.1
+
+1、更新NVIM v0.12.5
+
 # v6.0.0
 
 1、更新配置到官方v6+  
