@@ -307,11 +307,11 @@ function un_tar_file() {
         rm -rf "${nvim_install_dir:?}/nvim-linux64" >/dev/null 2>&1
         cd "${work_dir}" || exit
         echo -e "${huang_color}Untaring neovim installeler package.... ${lv_color}OK${normal_color}"
-        tar -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
+        tar --no-same-owner -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
     else
         cd "${work_dir}" || exit
         echo -e "${huang_color}Untaring neovim installeler package.... ${lv_color}OK${normal_color}"
-        tar -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
+        tar --no-same-owner -xf nvim-installer.tar.gz -C "${nvim_install_dir}"
     fi
     sleep 1
 
@@ -327,11 +327,11 @@ function un_tar_file() {
         mv "${nvim_config_dir}/nvim" "${nvim_config_dir}/nvim.bak${time_str}"
         cd "${work_dir}" || exit
         echo -e "${huang_color}Untaring neovim config file.... ${lv_color}OK${normal_color}"
-        tar -xf nvim-config.tar.gz -C "${nvim_config_dir}"
+        tar --no-same-owner -xf nvim-config.tar.gz -C "${nvim_config_dir}"
     else
         cd "${work_dir}" || exit
         echo -e "${huang_color}Untaring neovim config file.... ${lv_color}OK${normal_color}"
-        tar -xf nvim-config.tar.gz -C "${nvim_config_dir}"
+        tar --no-same-owner -xf nvim-config.tar.gz -C "${nvim_config_dir}"
     fi
     sleep 1
 
@@ -347,11 +347,11 @@ function un_tar_file() {
         mv "${nvim_plugin_dir}/nvim" "${nvim_plugin_dir}/nvim.bak${time_str}"
         cd "${work_dir}" || exit
         echo -e "${huang_color}Untaring neovim plugin file.... ${lv_color}OK${normal_color}"
-        tar -xf nvim-plugin.tar.gz -C "${nvim_plugin_dir}"
+        tar --no-same-owner -xf nvim-plugin.tar.gz -C "${nvim_plugin_dir}"
     else
         cd "${work_dir}" || exit
         echo -e "${huang_color}Untaring neovim plugin file.... ${lv_color}OK${normal_color}"
-        tar -xf nvim-plugin.tar.gz -C "${nvim_plugin_dir}"
+        tar --no-same-owner -xf nvim-plugin.tar.gz -C "${nvim_plugin_dir}"
     fi
     sleep 1
 }
